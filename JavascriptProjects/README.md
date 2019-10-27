@@ -1,1 +1,1 @@
-## Javascript Project Decriptions
+Early Javascript Projects.
