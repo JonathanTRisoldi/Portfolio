@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<HTML>
+	<HEAD>
+		<TITLE> Unit Converter </TITLE>
+		<META Charset "UTF-8" />
+		<META name ="author" content= "Jonathan T. Risoldi" />
+		<SCRIPT type="text/javascript">
+			function calcCmToIn() {
+				var cmInputBox = document.getElementById("cmInput");
+				var inOutputBox = document.getElementById("inOutput");
+				var cmInputValue = cmInputBox.value;
+				inOutputBox.value = cmInputValue / 2.54;
+			}
+			function calcInToCm() {
+				var inInputBox = document.getElementById("inInput");
+				var cmOutputBox = document.getElementById("cmOutput");
+				var inInputValue = inInputBox.value;
+				cmOutputBox.value = inInputValue * 2.54;
+			} 
+			function calcInToFt() {
+				var inInputBox2 = document.getElementById("inInput2");
+				var ftOutputBox = document.getElementById("ftOutput");
+				var inInput2Value = inInputBox2.value;
+				ftOutputBox.value = inInput2Value / 12;
+			} 
+			function calcFtToIn() {
+				var ftInputBox = document.getElementById("ftInput");
+				var inOutputBox2 = document.getElementById("inOutput2");
+				var ftInputValue = ftInputBox.value;
+				inOutputBox2.value = ftInputValue * 12;
+			} 
+			function calcYdToFt() {
+				var ydInputBox = document.getElementById("ydInput");
+				var ftOutputBox2 = document.getElementById("ftOutput2");
+				var ydInputValue = ydInputBox.value;
+				ftOutputBox2.value = ydInputValue * 3;
+			} 
+			function calcFtToYd() {
+				var ftInputBox2 = document.getElementById("ftInput2");
+				var ydOutputBox = document.getElementById("ydOutput");
+				var ftInput2Value = ftInputBox2.value;
+				ydOutputBox.value = ftInput2Value / 3;
+			}
+			function calcFToC() {
+				var fInputBox = document.getElementById("fInput");
+				var cOutputBox = document.getElementById("cOutput");
+				var fInputValue = fInputBox.value;
+				cOutputBox.value = (fInputValue -32) *5/9;
+			}
+			function calcCToF() {
+				var cInputBox = document.getElementById("cInput");
+				var fOutputBox = document.getElementById("fOutput");
+				var cInputValue = cInputBox.value;
+				fOutputBox.value = (cInputValue *1.8) +32 ;
+			}
+		</SCRIPT>
+	</HEAD>
+	<BODY>
+		<P> 
+			Enter a value in one of the unit conversion boxes,
+			and click the button next to it to see the new units. 
+		</p>
+		Measurment Units<BR />
+		<INPUT type="text" id="cmInput" value="0" />cm =
+		<INPUT type="text" id="inOutput" value="0" readonly="readonly" />in &nbsp;&nbsp;
+		<BUTTON onClick= "calcCmToIn();">Calculate</BUTTON><BR />
+		<BR />
+		<INPUT type="text" id="inInput" value="0" />in =&nbsp;
+		<INPUT type="text" id="cmOutput" value="0" readonly="readonly" />cm 
+		<BUTTON onClick= "calcInToCm();">Calculate</BUTTON><BR />
+		<BR />
+		<INPUT type="text" id="inInput2" value="0" />in =
+		<INPUT type="text" id="ftOutput" value="0" readonly="readonly" />ft &nbsp;&nbsp;
+		<BUTTON onClick= "calcInToFt();">Calculate</BUTTON><BR />
+		<BR />
+		<INPUT type="text" id="ftInput" value="0" />ft =
+		<INPUT type="text" id="inOutput2" value="0" readonly="readonly" />in &nbsp;&nbsp;
+		<BUTTON onClick= "calcFtToIn();">Calculate</BUTTON><BR />
+		<BR />
+		<INPUT type="text" id="ydInput" value="0" />yd =&nbsp;
+		<INPUT type="text" id="ftOutput2" value="0" readonly="readonly" />ft 
+		<BUTTON onClick= "calcYdToFt();">Calculate</BUTTON><BR />
+		<BR />
+		<INPUT type="text" id="ftInput2" value="0" />ft =&nbsp;
+		<INPUT type="text" id="ydOutput" value="0" readonly="readonly" />yd
+		<BUTTON onClick= "calcFtToYd();">Calculate</BUTTON><BR />
+		<BR />
+		Temperature Units<BR />
+		<INPUT type="text" id="fInput" value="0" />F =&nbsp;
+		<INPUT type="text" id="cOutput" value="0" readonly="readonly" />C =
+		<BUTTON onClick= "calcFToC();">Calculate</BUTTON><BR />
+		<BR />
+		<INPUT type="text" id="cInput" value="0" />C =&nbsp;
+		<INPUT type="text" id="fOutput" value="0" readonly="readonly" />F =
+		<BUTTON onClick= "calcCToF();">Calculate</BUTTON><BR />
+		<BR />
+	</BODY>
+</HTML>

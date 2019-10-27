@@ -1,0 +1,56 @@
+<!DOCTYPE>
+<HTML>
+	<HEAD>
+		<TITLE>Spell Check</TITLE>
+		<META Charset "UTF-8" />
+		<META name ="author" content= "Jonathan T. Risoldi" />
+		<SCRIPT src="Wordlist.js"></SCRIPT>
+		<SCRIPT>
+		var inputArray=[]//this is a global array that is used to store the userInput.
+		function convertUserInput (){ //this splits the userInput and counts how many words there are.
+			var userInput=document.getElementById("userInput").value; //this gets the value of userInput.
+			inputArray.push(userInput);//this puts the the userInput value inside the inputArray.
+			inputArray= userInput.split(" ");//this serperates the string in the inputArray by spaces.
+			console.log(inputArray);// displays the inputArray in the console (mainly for maintanence).
+			var wordCount=inputArray.length;//this gets the length of the inputArray.
+			document.getElementById("wordCount").innerHTML=wordCount;//this displays the length on the webpage.		
+			compare ();
+		}
+		function compare (){//this function  compares the input array to Wordlist.js, converts the input and alerts both when spell check is complete and when there is words misspelled.
+			for(var wordCounter=0;wordCounter<inputArray.length;wordCounter++){//this
+				var success = false;//this creats the variable success and sets it to false
+				for(var wordListCounter=0;wordListCounter<wordlist.length;wordListCounter++){//this 
+					if(inputArray[wordCounter].toUpperCase().trim().replace(/[^A-Za-z0-9_]/g,"")==wordlist[wordListCounter]){//this compares userInput and Wordlist.js and edits the input to match.
+						success = true;//this sets success to true.
+						break;//this steps out of the if statement.
+					} 
+				}	
+				if(!success) alert("This word is spelled wrong: "+inputArray[wordCounter]); //this is the alert that the user sees when they spell a word wrong.				
+			}
+			alert ("Spell check has been completed!");//this is the alert the user sees when the spellcheck is complete.
+		}	
+		</SCRIPT>
+		<style>
+			.button {
+				background-color: Firebrick;
+				border: none;
+				color: black;
+				padding: 15px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				margin: 4px 2px;
+				cursor: pointer;
+			}
+		</style>
+	<HEAD/>
+	<BODY align="Center" style="background-color:#1f1a1a;font-family:Helvetica;">
+	<H1 style="color:Firebrick;">Spell Check</H1>
+	<H3 style="color:Firebrick;"> This program is to check your spelling. Please insert your text in the text area and click "Check"</H3>
+	<TEXTAREA style="background-color:Black;color:Firebrick;border:solid 5px Firebrick;" rows="20" cols="100" id="userInput" type="text"></TEXTAREA><BR />
+	<button class="button" id="checkUserInput" onclick="convertUserInput ();">Check</button>
+	<!--<BUTTON id="test"; >Test</BUTTON>--><!--this is for maintanence and is not diplayed in the end product-->
+	<H3 style="color:Firebrick;font-family:Helvetica Header;">Word Count</H3><H3 id="wordCount" style="color:Firebrick"></H3>
+	<BODY/>
+<HTML/>
