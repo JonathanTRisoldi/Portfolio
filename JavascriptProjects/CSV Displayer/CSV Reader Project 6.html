@@ -1,0 +1,94 @@
+<!DOCTYPE>
+<HTML>
+	<HEAD>
+		<TITLE>CSV File Reader</TITLE>
+		<META Charset "UTF-8" />
+		<META name ="author" content= "Jonathan T. Risoldi" />
+		<SCRIPT type="text/javascript">
+			var data;
+			var canvasWidth= 800
+			var canvasHeight= 500
+			function displayFile() {
+			/* Template started from lesson 26.
+			Inspiration for this demo comes from 
+			Gravelle, Robert. "Read Text Files Using the Javascript FileReader." n.d.
+			Retrieved from https://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascript-filereader.html 13 Oct 2017.
+			Zakas, Nicholas C. "Working with Files in Javascript, part 2." 15 May 2012.
+			Retrieved from https://www.nczonline.net/blog/2012/05/15/working-with-files-in-javascript-part-2/ 13 Oct 2017.
+			*/
+				// Check for the various File API support.
+				if (window.File && window.FileReader && window.FileList && window.Blob) {
+					//Retrieve the first (and only!) File from the FileList object
+					var fileObject=document.getElementById("filePicker").files[0]; 
+					if (!fileObject) {
+						alert("No files selected.");
+					} else if (!fileObject.name.match('.csv')) {
+						alert(fileObject.name + " is not a valid csv file.");
+					} else {
+						// The FileReader is generic and can apply to any file.
+						var filePointer=new FileReader();
+						filePointer.onload=function(event) {
+							var csvData=[];
+							var csvLines=event.target.result.split("\r\n");
+							var header=csvLines[0].split(",");
+							for (var lineCounter=1;lineCounter<csvLines.length;lineCounter++) {
+								// Start with 1 because line 0 is the header line.
+								var thisRow = csvLines[lineCounter].split(",");
+								csvData[thisRow[0]]=[];
+								for (var fieldCounter=1;fieldCounter<thisRow.length;fieldCounter++) {
+									// Start with 1 because the first column is the row name.
+									csvData[thisRow[0]][header[fieldCounter]]=thisRow[fieldCounter];
+								}
+							}
+							data=csvData;
+							displayDataOnCanvasOne(csvData,header); 
+							
+						};
+						// Once the generic instructions have been defined, we can now process the specific file.
+						filePointer.readAsText(fileObject);
+					}
+				} else {
+					alert('The File APIs are not fully supported by your browser.');
+				}
+			}
+			function displayDataOnCanvasOne (data,header){//This function takes the data and converts it into a line graph form.
+				var canvasOne=document.getElementById("canvasOne"); 
+				var context=canvasOne.getContext("2d");
+					context.fillStyle= "white";//this makes the canvas background white
+					context.fillRect(0,0,799,499);//this gives measurements for the fill area
+				var ctxLabel= canvasOne.getContext ("2d");//this introduces the text on the convas
+					ctxLabel.fillStyle= "black";//this makes the text black
+					ctxLabel.font= "15px Helvetica";//this changes the size and font
+					ctxLabel.fillText("Red=Temperature || Orange=Humidity || Blue=Precipitation",1,15);//this is the text that gets imputted and the possition.
+					context.strokeStyle="red";//This turns the line color slected
+					context.beginPath();// This tells where to begin the line
+				var tCounter=0;//sets the counter to 0
+				for (tempCounter in data)//makes a for loop for slected data.
+					context.lineTo(Math.floor(canvasWidth/20)*tCounter++,Math.floor(canvasHeight/100*(100-data[tempCounter]["Temperature"])));//this is the algorithm for the data to go through in order to become the line.
+					context.stroke ();
+					canvasOne=null;
+					context.strokeStyle="orange";
+					context.beginPath();
+				var hCounter=0;
+				for (humCounter in data)
+					context.lineTo(Math.floor(canvasWidth/20)*hCounter++,Math.floor(canvasHeight/100*(100-data[humCounter]["Humidity"])));
+					context.stroke ();
+					canvasOne=null;
+					context.strokeStyle="blue";
+					context.beginPath();
+				var pCounter=0;
+				for (precipCounter in data)
+					context.lineTo(Math.floor(canvasWidth/20)*pCounter++,Math.floor(canvasHeight/1.5*(1.5-data[precipCounter]["Precipitation"])));
+					context.stroke ();
+					canvasOne=null;
+			}
+		</SCRIPT>
+	<HEAD/>
+	<BODY align="center" style="background-color:firebrick;">
+		<H1>CSV File Loader</H1>
+		<H3>Select a CSV(only) file and select "Display File" to view the file in a graphical format.<H3>
+		<H4>X-axis:Dates || Y-Axis:Degrees/Percent/inches<H4><BR />
+		<INPUT type="file" id="filePicker"/><BUTTON onClick="displayFile ();" id="displayFileButton">Display File</BUTTON><BR />
+		<CANVAS id="canvasOne" width="800" height="500" style="border: 5px solid black;"></CANVAS>
+	<BODY/>
+<HTML/>
